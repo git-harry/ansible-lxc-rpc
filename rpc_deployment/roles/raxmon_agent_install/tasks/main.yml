@@ -33,10 +33,16 @@
     cache_valid_time: 600
   with_items:
     - rackspace-monitoring-agent
+    - git-core
+    - libxslt-dev
+    - python-dev
+    - zlib1g-dev
+    - libffi-dev
+    - libssl-dev
 
 - name: Clone plugins repo
   git:
-    repo: https://github.com/rcbops/rpc-maas.git
+    repo: "{{ maas_repo_location }}"
     dest: /usr/lib/rackspace-monitoring-agent/plugins/
     version: "{{ maas_repo_version }}"
 
@@ -56,9 +62,11 @@
 - name: Install python dependencies
   pip:
     requirements: /usr/lib/rackspace-monitoring-agent/plugins/requirements.txt
+    virtualenv: "{{ plugin_venv }}"
 
 - name: Entity {{ entity_name }} count
   shell: "raxmon-entities-list | grep ' label={{ entity_name }} provider=Rackspace Monitoring ...>$' | wc -l"
+  environment: raxmon_environment
   register: entity_count
 
 - name: At most one {{ entity_name }} entity exists
@@ -68,10 +76,12 @@
 
 - name: Get entity {{ entity_name }}
   shell: "raxmon-entities-list | grep ' label={{ entity_name }} provider=Rackspace Monitoring ...>$' | awk '{print $2}' | cut -d= -f2"
+  environment: raxmon_environment
   register: entity
 
 - name: Assign agent ID to entity
   shell: "raxmon-entities-update --id {{ entity.stdout }} --agent-id {{ entity_name }}"
+  environment: raxmon_environment
 
 - name: Generate raxmon agent config
   template:
