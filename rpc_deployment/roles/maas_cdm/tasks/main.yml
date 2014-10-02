@@ -15,6 +15,7 @@
 
 - include: cdm.yml
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: cpu
     check_details: "{}"
     check_period: "{{ maas_check_period }}"
@@ -26,6 +27,7 @@
 
 - include: cdm.yml
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: filesystem
     check_details: "target=/"
     check_period: "{{ maas_check_period }}"
@@ -37,6 +39,7 @@
 
 - include: cdm.yml
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: memory
     check_details: "{}"
     check_period: "{{ maas_check_period }}"
