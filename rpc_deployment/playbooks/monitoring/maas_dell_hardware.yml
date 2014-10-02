@@ -15,6 +15,7 @@
 
 - hosts: hosts
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: openmanage-memory
     file_name: openmanage
     check_details: file={{ file_name }}.py,args=chassis,args=memory
@@ -28,6 +29,7 @@
 
 - hosts: hosts
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: openmanage-processors
     file_name: openmanage
     check_details: file={{ file_name }}.py,args=chassis,args=processors
@@ -41,6 +43,7 @@
 
 - hosts: hosts
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: openmanage-vdisk
     file_name: openmanage
     check_details: file={{ file_name }}.py,args=storage,args=vdisk

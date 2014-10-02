@@ -15,23 +15,28 @@
 
 - name: Get entity ID for physical_host
   shell: raxmon-entities-list  | grep "label={{ inventory_hostname|quote }}{{ maas_fqdn_extension|default('') }} " | sed -e 's/^.* id=\(.*\) label=.*$/\1/g'
+  environment: env
   register: entity_id
 
 - name: Validate if check exists
   shell: raxmon-checks-list --entity-id {{ entity_id.stdout|quote }} | grep "label={{ check_name|quote }}--{{ inventory_hostname|quote }}"
+  environment: env
   register: check_exists
   ignore_errors: True
 
 - name: Create check if it does not exist
   command: raxmon-checks-create --entity-id {{ entity_id.stdout }} --type agent.plugin --label {{ check_name }}--{{ inventory_hostname }} --details {{ check_details }} --period {{ check_period }} --timeout {{ check_timeout }}
+  environment: env
   when: check_exists|failed
 
 - name: Get check ID for newly created check
   shell: raxmon-checks-list --entity-id {{ entity_id.stdout|quote }} | grep "label={{ check_name|quote }}--{{ inventory_hostname|quote }}" | sed -e 's/^.* id=\(.*\) label=.*$/\1/g'
+  environment: env
   register: check_id
 
 - name: Validate if alarm exists
   shell: raxmon-alarms-list --entity-id {{ entity_id.stdout|quote }} | grep "label={{ item.name|quote }}--{{ inventory_hostname|quote }}"
+  environment: env
   register: alarm_exists
   ignore_errors: True
   when: alarms is defined
@@ -39,6 +44,7 @@
 
 - name: Create alarm if it does not exist
   shell: raxmon-alarms-create --entity-id {{ entity_id.stdout|quote }} --check-id {{ check_id.stdout|quote }} --notification-plan {{ maas_notification_plan }} --label {{ item[1].name|quote }}--{{ inventory_hostname|quote }} --criteria {{ item[1].criteria|quote }}
+  environment: env
   when: item[0]|failed and alarms is defined
   with_together:
     - alarm_exists.results
