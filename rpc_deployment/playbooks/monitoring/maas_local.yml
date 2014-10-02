@@ -15,6 +15,7 @@
 
 - hosts: cinder_api
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: cinder_api_local_check
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -27,6 +28,7 @@
 
 - hosts: cinder_scheduler
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: cinder_scheduler_check
     check_details: file=cinder_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -39,6 +41,7 @@
 
 - hosts: cinder_volume
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: cinder_volume_check
     check_details: file=cinder_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -51,6 +54,7 @@
 
 - hosts: glance_api
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: glance_api_local_check
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -63,6 +67,7 @@
 
 - hosts: glance_registry
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: glance_registry_local_check
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -75,6 +80,7 @@
 
 - hosts: heat_api
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: heat_api_local_check
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -87,6 +93,7 @@
 
 - hosts: heat_api_cfn
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: heat_cfn_api_check
     check_details: file=service_api_local_check.py,args=heat_cfn,args={{ ansible_ssh_host }},args=8000
     check_period: "{{ maas_check_period }}"
@@ -99,6 +106,7 @@
 
 - hosts: heat_api_cloudwatch
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: heat_cw_api_check
     check_details: file=service_api_local_check.py,args=heat_cw,args={{ ansible_ssh_host }},args=8003
     check_period: "{{ maas_check_period }}"
@@ -111,6 +119,7 @@
 
 - hosts: horizon
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: horizon_local_check
     check_details: file=horizon_check.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -123,6 +132,7 @@
 
 - hosts: keystone
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: keystone_api_local_check
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -135,6 +145,7 @@
 
 - hosts: neutron_server
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: neutron_api_local_check
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -147,6 +158,7 @@
 
 - hosts: neutron_dhcp_agent
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: neutron_dhcp_agent_check
     check_details: file=neutron_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -159,6 +171,7 @@
 
 - hosts: neutron_l3_agent
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: neutron_l3_agent_check
     check_details: file=neutron_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -171,6 +184,7 @@
 
 - hosts: neutron_linuxbridge_agent
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: neutron_linuxbridge_agent_check
     check_details: file=neutron_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -183,6 +197,7 @@
 
 - hosts: neutron_metadata_agent
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: neutron_metadata_agent_check
     check_details: file=neutron_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -195,6 +210,7 @@
 
 - hosts: neutron_l3_agent
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: neutron_metering_agent_check
     check_details: file=neutron_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -204,6 +220,7 @@
 
 - hosts: nova_api_metadata
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: nova_api_metadata_local_check
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -216,6 +233,7 @@
 
 - hosts: nova_api_os_compute
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: nova_api_local_check
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -228,6 +246,7 @@
 
 - hosts: nova_compute
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: nova_compute_check
     check_details: file=nova_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -240,6 +259,7 @@
 
 - hosts: nova_cert
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: nova_cert_check
     check_details: file=nova_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -252,6 +272,7 @@
 
 - hosts: nova_conductor
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: nova_conductor_check
     check_details: file=nova_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -264,6 +285,7 @@
 
 - hosts: nova_scheduler
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: nova_scheduler_check
     check_details: file=nova_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -276,6 +298,7 @@
 
 - hosts: nova_spice_console
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: nova_consoleauth_check
     check_details: file=nova_service_check.py,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
     check_period: "{{ maas_check_period }}"
@@ -288,6 +311,7 @@
 
 - hosts: nova_spice_console
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: nova_spice_console_check
     check_details: file=service_api_local_check.py,args=nova_spice,args={{ ansible_ssh_host }},args=6082
     check_period: "{{ maas_check_period }}"
@@ -300,6 +324,7 @@
 
 - hosts: rabbit
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: rabbitmq_status
     check_details: file={{ check_name }}.py,args=-H,args={{ ansible_ssh_host }},args=-n,args={{ inventory_hostname.split('.')[0] }}
     check_period: "{{ maas_check_period }}"
@@ -313,6 +338,7 @@
 
 - hosts: galera
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: galera_check
     check_details: file={{ check_name }}.py,args=-H,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -323,6 +349,7 @@
 
 - hosts: memcached
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: memcached_status
     check_details: file={{ check_name }}.py,args={{ ansible_ssh_host }}
     check_period: "{{ maas_check_period }}"
@@ -335,6 +362,7 @@
 
 - hosts: hosts
   vars:
+    env: "{{ raxmon_environment }}"
     check_name: disk_utilisation
     check_details: file={{ check_name }}.py
     check_period: "{{ maas_check_period }}"
