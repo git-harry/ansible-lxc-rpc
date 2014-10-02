@@ -15,6 +15,7 @@
 
 - name: Entity {{ entity_name }} count
   shell: "raxmon-entities-list | grep ' label={{ entity_name }} provider=Rackspace Monitoring ...>$' | wc -l"
+  environment: env
   register: entity_count
   delegate_to: "{{ physical_host }}"
 
@@ -25,11 +26,13 @@
 
 - name: Get entity {{ entity_name }}
   shell: "raxmon-entities-list | grep ' label={{ entity_name }} provider=Rackspace Monitoring ...>$' | awk '{print $2}' | cut -d= -f2"
+  environment: env
   register: entity
   delegate_to: "{{ physical_host }}"
 
 - name: Check {{ check_name }} count
   shell: "raxmon-checks-list --entity-id {{ entity.stdout }} | grep ' label={{ check_name }}...>$' | wc -l"
+  environment: env
   register: check_count
   delegate_to: "{{ physical_host }}"
 
@@ -40,16 +43,19 @@
 
 - name: Create check {{ check_name }}
   shell: raxmon-checks-create --entity-id {{ entity.stdout }} --label {{ check_name }} --type {{ check_type }} --details url={{ url }} --monitoring-zones "{{ monitoring_zones|join(',') }}" --target-alias {{ target_alias }} --period {{ check_period }} --timeout {{ check_timeout }}
+  environment: env
   when: check_count.stdout|int == 0
   delegate_to: "{{ physical_host }}"
 
 - name: Get check {{ check_name }}
   shell: "raxmon-checks-list --entity-id {{ entity.stdout }} | grep ' label={{ check_name }}...>$' | awk '{print $2}' | cut -d= -f2"
+  environment: env
   register: check
   delegate_to: "{{ physical_host }}"
 
 - name: Alarm {{ alarm_name }} count
   shell: "raxmon-alarms-list --entity-id {{ entity.stdout }} | grep ' label={{ alarm_name }} ...>' | wc -l"
+  environment: env
   register: alarm_count
   delegate_to: "{{ physical_host }}"
 
@@ -60,5 +66,6 @@
 
 - name: Create alarm {{ alarm_name }}
   shell: "raxmon-alarms-create --entity-id {{ entity.stdout }} --label {{ alarm_name }} --check-id {{ check.stdout }} --notification-plan-id {{ notification_plan }} --criteria {{ criteria|quote }}"
+  environment: env
   when: alarm_count.stdout|int == 0
   delegate_to: "{{ physical_host }}"

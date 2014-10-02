@@ -17,6 +17,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
@@ -38,6 +39,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
@@ -59,6 +61,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
@@ -80,6 +83,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
@@ -101,6 +105,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
@@ -122,6 +127,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
@@ -143,6 +149,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
@@ -164,6 +171,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
@@ -185,6 +193,7 @@
   roles:
     - maas_remote
   vars:
+    env: "{{ raxmon_environment }}"
     entity_name: "{{ lb_name }}"
     target_alias: "{{ maas_target_alias }}"
     check_type: remote.http
