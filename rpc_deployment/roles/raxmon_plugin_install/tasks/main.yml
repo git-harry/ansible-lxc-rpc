@@ -19,26 +19,17 @@
     state: latest
     update_cache: yes
     cache_valid_time: 600
-  with_items:
-    - git-core
-    - libxslt-dev
-    - python-dev
-    - zlib1g-dev
-    - libffi-dev
-    - libssl-dev
+  with_items: plugin_packages
 
-- name: Clone plugins repo
-  git:
-    repo: "{{ maas_repo_location }}"
-    dest: /usr/lib/rackspace-monitoring-agent/plugins/
-    version: "{{ maas_repo_version }}"
+- name: Download raxmon plugins
+  command: wget -r -N -nH -P "{{ plugin_dir }}" -A '*\.pex' "{{ plugin_url }}"
 
-- name: Chmod plugins
-  file: path={{ item }} mode=0755
-  with_fileglob:
-    - /usr/lib/rackspace-monitoring-agent/plugins/*.py
+- name: List plugins
+  command: ls -1 "{{ plugin_dir }}"
+  register: plugin_list
 
-- name: Install python dependencies
-  pip:
-    requirements: /usr/lib/rackspace-monitoring-agent/plugins/requirements.txt
-    virtualenv: "{{ plugin_venv }}"
+- name: Update permissions
+  file:
+    path: "{{ plugin_dir }}/{{ item }}"
+    mode: 0755
+  with_items: plugin_list.stdout_lines

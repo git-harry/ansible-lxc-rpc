@@ -18,7 +18,7 @@
     env: "{{ raxmon_environment }}"
     check_name: openmanage-memory
     file_name: openmanage
-    check_details: file={{ file_name }}.py,args=chassis,args=memory
+    check_details: file={{ file_name }}.pex,args=chassis,args=memory
     check_period: "{{ maas_check_period }}"
     check_timeout: "{{ maas_check_timeout }}"
     alarms:
@@ -32,7 +32,7 @@
     env: "{{ raxmon_environment }}"
     check_name: openmanage-processors
     file_name: openmanage
-    check_details: file={{ file_name }}.py,args=chassis,args=processors
+    check_details: file={{ file_name }}.pex,args=chassis,args=processors
     check_period: "{{ maas_check_period }}"
     check_timeout: "{{ maas_check_timeout }}"
     alarms:
@@ -46,7 +46,7 @@
     env: "{{ raxmon_environment }}"
     check_name: openmanage-vdisk
     file_name: openmanage
-    check_details: file={{ file_name }}.py,args=storage,args=vdisk
+    check_details: file={{ file_name }}.pex,args=storage,args=vdisk
     check_period: "{{ maas_check_period }}"
     check_timeout: "{{ maas_check_timeout }}"
     alarms:

@@ -18,3 +18,7 @@
   roles:
     - galera_client_cnf
     - raxmon_plugin_install
+  vars:
+    plugin_packages: "{{ raxmon_plugin_packages }}"
+    plugin_dir: "{{ raxmon_plugin_dir }}"
+    plugin_url: "{{ raxmon_plugin_url }}"
