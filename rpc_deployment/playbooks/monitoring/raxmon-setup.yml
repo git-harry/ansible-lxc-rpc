@@ -16,7 +16,6 @@
 - hosts: hosts
   user: root
   roles:
-    - galera_client_cnf
     - raxmon_cli
     - raxmon_agent_install
   vars:
@@ -24,24 +23,12 @@
 
 - hosts: keystone[0]
   user: root
-  tasks:
-  # TODO (mattt): Modify openstack_openrc role to allow us to pass in arbitrary
-  #               details.  This is a refactor which will need to wait until a
-  #               later date.
-  - name: Create keystone user for monitoring
-    keystone: >
-      command=ensure_user
-      token="{{ auth_admin_token }}"
-      endpoint="{{ auth_admin_uri }}"
-      user_name="{{ maas_keystone_user }}"
-      tenant_name="{{ auth_admin_tenant }}"
-      password="{{ maas_keystone_password }}"
-
-  - name: Add monitoring keystone user to admin role
-    keystone: >
-      command=ensure_user_role
-      token="{{ auth_admin_token }}"
-      endpoint="{{ auth_admin_uri }}"
-      user_name="{{ maas_keystone_user }}"
-      tenant_name=admin
-      role_name=admin
+  roles:
+    - keystone_add_user
+  vars:
+    additional_keystone_users:
+      - { user: "{{ maas_keystone_user }}", tenant: "{{ auth_admin_tenant }}", role: admin, password: "{{ maas_keystone_password }}", description: 'MaaS user.' }
+#  tasks:
+#  # TODO (mattt): Modify openstack_openrc role to allow us to pass in arbitrary
+#  #               details.  This is a refactor which will need to wait until a
+#  #               later date.
