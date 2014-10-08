@@ -1,0 +1,7 @@
+---
+- include: raxmon-setup.yml
+- include: plugin-setup.yml
+- include: maas_remote.yml
+- include: maas_local.yml
+- include: maas_cdm.yml
+- include: maas_dell_hardware.yml
