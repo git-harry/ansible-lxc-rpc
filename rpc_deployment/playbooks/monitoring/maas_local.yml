@@ -78,45 +78,6 @@
   roles:
     - maas_local
 
-- hosts: heat_api
-  vars:
-    env: "{{ raxmon_environment }}"
-    check_name: heat_api_local_check
-    check_details: file={{ check_name }}.pex,args={{ ansible_ssh_host }}
-    check_period: "{{ maas_check_period }}"
-    check_timeout: "{{ maas_check_timeout }}"
-    alarms:
-      - { 'name': 'heat_api_local_status', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["heat_api_local_status"] != 1) { return new AlarmStatus(CRITICAL, "API unavailable"); }' }
-  user: root
-  roles:
-    - maas_local
-
-- hosts: heat_api_cfn
-  vars:
-    env: "{{ raxmon_environment }}"
-    check_name: heat_cfn_api_check
-    check_details: file=service_api_local_check.pex,args=heat_cfn,args={{ ansible_ssh_host }},args=8000
-    check_period: "{{ maas_check_period }}"
-    check_timeout: "{{ maas_check_timeout }}"
-    alarms:
-      - { 'name': 'heat_cfn_api_local_status', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["heat_cfn_api_local_status"] != 1) { return new AlarmStatus(CRITICAL, "API unavailable"); }' }
-  user: root
-  roles:
-    - maas_local
-
-- hosts: heat_api_cloudwatch
-  vars:
-    env: "{{ raxmon_environment }}"
-    check_name: heat_cw_api_check
-    check_details: file=service_api_local_check.pex,args=heat_cw,args={{ ansible_ssh_host }},args=8003
-    check_period: "{{ maas_check_period }}"
-    check_timeout: "{{ maas_check_timeout }}"
-    alarms:
-      - { 'name': 'heat_cw_api_local_status', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["heat_cw_api_local_status"] != 1) { return new AlarmStatus(CRITICAL, "API unavailable"); }' }
-  user: root
-  roles:
-    - maas_local
-
 - hosts: horizon
   vars:
     env: "{{ raxmon_environment }}"
@@ -178,19 +139,6 @@
     check_timeout: "{{ maas_check_timeout }}"
     alarms:
       - { 'name': 'neutron_l3_agent_status', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["neutron-l3-agent_status"] != 1) { return new AlarmStatus(CRITICAL, "neutron-l3-agent down"); }' }
-  user: root
-  roles:
-    - maas_local
-
-- hosts: neutron_linuxbridge_agent
-  vars:
-    env: "{{ raxmon_environment }}"
-    check_name: neutron_linuxbridge_agent_check
-    check_details: file=neutron_service_check.pex,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
-    check_period: "{{ maas_check_period }}"
-    check_timeout: "{{ maas_check_timeout }}"
-    alarms:
-      - { 'name': 'neutron_linuxbridge_agent_status', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["neutron-linuxbridge-agent_status"] != 1) { return new AlarmStatus(CRITICAL, "neutron-linuxbridge-agent down"); }' }
   user: root
   roles:
     - maas_local
@@ -322,31 +270,6 @@
   roles:
     - maas_local
 
-- hosts: rabbit
-  vars:
-    env: "{{ raxmon_environment }}"
-    check_name: rabbitmq_status
-    check_details: file={{ check_name }}.pex,args=-H,args={{ ansible_ssh_host }},args=-n,args={{ inventory_hostname.split('.')[0] }}
-    check_period: "{{ maas_check_period }}"
-    check_timeout: "{{ maas_check_timeout }}"
-    alarms:
-      - { 'name': 'disk_free_alarm', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["disk_free_alarm"] != 1) { return new AlarmStatus(CRITICAL, "disk_free_alarm triggered"); }' }
-      - { 'name': 'mem_alarm', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["mem_alarm"] != 1) { return new AlarmStatus(CRITICAL, "mem_alarm triggered"); }' }
-  user: root
-  roles:
-    - maas_local
-
-- hosts: galera
-  vars:
-    env: "{{ raxmon_environment }}"
-    check_name: galera_check
-    check_details: file={{ check_name }}.pex,args=-H,args={{ ansible_ssh_host }}
-    check_period: "{{ maas_check_period }}"
-    check_timeout: "{{ maas_check_timeout }}"
-  user: root
-  roles:
-    - maas_local
-
 - hosts: memcached
   vars:
     env: "{{ raxmon_environment }}"
@@ -371,6 +294,39 @@
       - { 'name': 'percentage_disk_utilisation_sda', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["disk_utilisation_sda"] >= 90.0) { return new AlarmStatus(WARNING, "Disk utilisation for sda >= 90%"); }' }
       - { 'name': 'percentage_disk_utilisation_sdb', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["disk_utilisation_sdb"] >= 90.0) { return new AlarmStatus(WARNING, "Disk utilisation for sdb >= 90%"); }' }
       - { 'name': 'percentage_disk_utilisation_sdc', 'criteria': ':set consecutiveCount={{ maas_alarm_local_consecutive_count }} if (metric["disk_utilisation_sdc"] >= 90.0) { return new AlarmStatus(WARNING, "Disk utilisation for sdc >= 90%"); }' }
+  user: root
+  roles:
+    - maas_local
+
+- hosts: nova_compute
+  vars:
+    env: "{{ raxmon_environment }}"
+    check_name: kvm
+    check_details: file={{ check_name }}.pex,args='"kvm=/usr/bin/virsh sysinfo"'
+    check_period: "{{ maas_check_period }}"
+    check_timeout: "{{ maas_check_timeout }}"
+  user: root
+  roles:
+    - maas_local
+
+- hosts: rabbit
+  vars:
+    env: "{{ raxmon_environment }}"
+    check_name: rabbit
+    check_details: file={{ check_name }}.pex,args='"rabbit=/usr/sbin/rabbitmqctl list_queues"'
+    check_period: "{{ maas_check_period }}"
+    check_timeout: "{{ maas_check_timeout }}"
+  user: root
+  roles:
+    - maas_local
+
+- hosts: ovs
+  vars:
+    env: "{{ raxmon_environment }}"
+    check_name: rabbit
+    check_details: file={{ check_name }}.pex,args='"ovsdb_time=/usr/bin/ovsdb-client list-dbs"',args='"ovsswitchd_time=/usr/bin/ovs-vsctl list-br"'
+    check_period: "{{ maas_check_period }}"
+    check_timeout: "{{ maas_check_timeout }}"
   user: root
   roles:
     - maas_local

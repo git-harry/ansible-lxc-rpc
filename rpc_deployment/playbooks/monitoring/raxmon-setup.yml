@@ -28,7 +28,7 @@
   vars:
     additional_keystone_users:
       - { user: "{{ maas_keystone_user }}", tenant: "{{ auth_admin_tenant }}", role: admin, password: "{{ maas_keystone_password }}", description: 'MaaS user.' }
-#  tasks:
-#  # TODO (mattt): Modify openstack_openrc role to allow us to pass in arbitrary
-#  #               details.  This is a refactor which will need to wait until a
-#  #               later date.
+  tasks:
+  # TODO (mattt): Modify openstack_openrc role to allow us to pass in arbitrary
+  #               details.  This is a refactor which will need to wait until a
+  #               later date.

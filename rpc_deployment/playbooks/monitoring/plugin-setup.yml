@@ -16,7 +16,6 @@
 - hosts: hosts
   user: root
   roles:
-    - galera_client_cnf
     - raxmon_plugin_install
   vars:
     plugin_packages: "{{ raxmon_plugin_packages }}"
