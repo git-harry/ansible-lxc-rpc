@@ -1,0 +1,49 @@
+---
+maas_auth_method: password
+maas_username: 
+maas_api_key: 
+maas_auth_url: https://lon.identity.api.rackspacecloud.com/v2.0
+maas_agent_token: 
+raxmon_agent_key: "https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc"
+raxmon_agent_repos:
+- { repo: "deb http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-14.04-x86_64 cloudmonitoring main", state: "present" }
+maas_keystone_user: maas
+maas_keystone_password: secrete
+auth_admin_tenant: admin
+auth_admin_username: admin
+auth_admin_password: secrete
+auth_admin_uri: "{{ auth_identity_uri }}"
+auth_identity_uri: "http://{{ internal_vip_address }}:5000/v2.0"
+raxmon_environment:
+  PATH: "/usr/lib/rackspace-monitoring-agent/raxmon_venv/bin:{{ ansible_env.PATH }}"
+raxmon_venv: /usr/lib/rackspace-monitoring-agent/raxmon_venv
+physical_host: "{{ ansible_hostname }}"
+maas_check_period: 60
+maas_check_timeout: 30
+maas_alarm_local_consecutive_count: 3
+maas_notification_plan: 
+maas_target_alias: public0_v4
+maas_monitoring_zones:
+  - mzdfw
+  - mziad
+  - mzord
+  - mzlon
+  - mzhkg
+maas_scheme: https
+cinder_service_port: 8776
+maas_alarm_remote_consecutive_count: 1
+auth_public_port: 5000
+raxmon_plugin_dir: /usr/lib/rackspace-monitoring-agent/plugins
+raxmon_plugin_packages:
+  - libxslt-dev
+  - python-dev
+  - zlib1g-dev
+  - libffi-dev
+  - libssl-dev
+raxmon_plugin_url: http://0eea56a2e1106160aa55-385aaa9c8c85307df64c34f526a0b302.r66.cf3.rackcdn.com/
+external_vip_address: 
+internal_vip_address: 
+lb_name: 
+mysql_username: 
+mysql_password: 
+mysql_ip_address: 

@@ -1,2 +1,62 @@
-[local]
-localhost    ansible_connection=local
+[hosts:children]
+422_controllers
+422_compute
+422_volume
+
+[monitoring:children]
+422_controllers
+422_compute
+422_volume
+
+[422_controllers]
+controller1_hostname ansible_ssh_host=
+controller2_hostname ansible_ssh_host=
+[422_compute]
+compute1_hostname ansible_ssh_host=
+[422_volume]
+volume1_hostname ansible_ssh_host=
+
+[cinder_api:children]
+422_controllers
+[cinder_scheduler:children]
+422_controllers
+[cinder_volume:children]
+422_volume
+[glance_api:children]
+422_controllers
+[glance_registry:children]
+422_controllers
+[horizon:children]
+422_controllers
+[keystone:children]
+422_controllers
+[neutron_server:children]
+422_controllers
+[neutron_dhcp_agent:children]
+422_controllers
+[neutron_l3_agent:children]
+422_controllers
+[neutron_metadata_agent:children]
+422_controllers
+[nova_api_metadata:children]
+422_controllers
+[nova_api_os_compute:children]
+422_controllers
+[nova_compute:children]
+422_compute
+[nova_cert:children]
+422_controllers
+[nova_conductor:children]
+422_controllers
+[nova_scheduler:children]
+422_controllers
+[nova_spice_console:children]
+422_controllers
+[ovs:children]
+422_controllers
+[rabbit:children]
+422_controllers
+[memcached:children]
+422_controllers
+[mysql:children]
+422_controllers
