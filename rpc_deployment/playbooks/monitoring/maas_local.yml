@@ -196,7 +196,7 @@
   vars:
     env: "{{ raxmon_environment }}"
     check_name: nova_compute_check
-    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
+    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }}
     check_period: "{{ maas_check_period }}"
     check_timeout: "{{ maas_check_timeout }}"
     alarms:
@@ -209,7 +209,7 @@
   vars:
     env: "{{ raxmon_environment }}"
     check_name: nova_cert_check
-    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
+    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }}
     check_period: "{{ maas_check_period }}"
     check_timeout: "{{ maas_check_timeout }}"
     alarms:
@@ -222,7 +222,7 @@
   vars:
     env: "{{ raxmon_environment }}"
     check_name: nova_conductor_check
-    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
+    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }}
     check_period: "{{ maas_check_period }}"
     check_timeout: "{{ maas_check_timeout }}"
     alarms:
@@ -235,7 +235,7 @@
   vars:
     env: "{{ raxmon_environment }}"
     check_name: nova_scheduler_check
-    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
+    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }}
     check_period: "{{ maas_check_period }}"
     check_timeout: "{{ maas_check_timeout }}"
     alarms:
@@ -248,7 +248,7 @@
   vars:
     env: "{{ raxmon_environment }}"
     check_name: nova_consoleauth_check
-    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }},args={{ internal_vip_address }}
+    check_details: file=nova_service_check.pex,args=--host,args={{ ansible_hostname }}
     check_period: "{{ maas_check_period }}"
     check_timeout: "{{ maas_check_timeout }}"
     alarms:
